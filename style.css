@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    text-align: center;
+    background-image: url("images/background_white.jpg");
+}
+
+header {
+    height: 80px;
+    background-color: steelblue;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.title {
+    font-family: 'Barriecito';
+    font-size: 55px;
+    font-weight: bold;
+    color: #f0f8ff;
+    padding: 0 7px;
+}
+
+.instructionHeader {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.instructionTitle {
+    font-family: 'Barriecito';
+    font-size: 40px;
+    font-weight: bold;
+    color: #4682b4;
+    margin: 15px 6px;
+}
+
+.instructionBody {
+    margin: auto;
+    width: 450px;
+}
+
+.instructionNumber {
+    font-family: 'Barriecito';
+    font-size: 40px;
+    font-weight: bold;
+    color: steelblue;
+    padding: 0 12px;
+}
+
+.instructionText {
+    font-family: 'Neucha';
+    font-size: 18px;
+    font-weight: bold;
+    color: darkslategrey;
+    text-align: left;
+}
+
+.doors {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.door {
+    height: 250px;
+    margin: 10px 20px;
+}
+
+button {
+    background-color: #4682b4;
+    color: #f0f8ff;
+    font-family: 'Neucha';
+    font-size: 20px;
+    border-radius: 6px;
+    margin: 5px;
+    width: 140px;
+    height: 70px;
+}
