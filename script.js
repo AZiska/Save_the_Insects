@@ -1,10 +1,23 @@
-let doorImage1 = document.getElementById("door1");
-let doorImage2 = document.getElementById("door2");
-let doorImage3 = document.getElementById("door3");
-let button = document.getElementById("gameButton");
-let language = document.getElementById("language");
-let savedInsects = document.getElementById("savedInsects_counter");
-let pesticideAttacks = document.getElementById("pesticideAttacks_counter");
+const doorImage1 = document.getElementById("door1");
+const doorImage2 = document.getElementById("door2");
+const doorImage3 = document.getElementById("door3");
+const gameButton = document.getElementById("gameButton");
+const languageButton = document.getElementById("language");
+const savedInsects = document.getElementById("savedInsects_counter");
+const pesticideAttacks = document.getElementById("pesticideAttacks_counter");
+
+// variables for language settings
+const tabTitle = document.getElementById('tabTitle');
+const gameTitle = document.getElementById('gameTitle');
+const instructionTitle = document.getElementById('instructionTitle');
+const instructionText1 = document.getElementById('instructionText1');
+const instructionText2 = document.getElementById('instructionText2');
+const instructionText3 = document.getElementById('instructionText3');
+const instructionText4 = document.getElementById('instructionText4');
+const savedInsectsText = document.getElementById('savedInsects_text');
+const pesticideAttacksText = document.getElementById('pesticideAttacks_text');
+let currentLanguage = 'english'
+let dictionaryGameLanguage;
 
 const planeDoorPath = "images/plane.jpg";
 const beeDoorPath = "images/bee.jpg";
@@ -20,10 +33,11 @@ let door3Clickcounter = 0;
 let numClosedDoors = 3;
 let gameIsWon = false;
 let gameIsLost = false
-let currentLanguage = 'english'
+
 let savedInsectsCount = 0;
 let pesticideAttacksCount = 0;
 
+// GENERATING IMAGES BEHIND THE THREE DOORS
 const doorGenerator = () => {
     let randomNumber = Math.floor(Math.random() * (numClosedDoors - 1))
     if (randomNumber === 0) {
@@ -43,6 +57,7 @@ const doorGenerator = () => {
     }
 }
 
+// CLICK FEATURE FOR THE THREE DOORS TO OPEN THEM
 doorImage1.onclick = () => {
     if (!alreadyClicked(door1Clickcounter) && !gameIsLost) {
         doorImage1.src = openDoor1;
@@ -88,11 +103,12 @@ const alreadyClicked = (doorCounter) => {
     return true
 }
 
+// CHECK FOR GAME OVER
 const checkGameOver = (doorNumber) => {
     if (numClosedDoors === 0) {
         gameIsWon = true;
-        updateButton()
-        button.style.cursor = 'pointer'
+        setButtonLanguage(dictionaryGameLanguage)
+        gameButton.style.cursor = 'pointer'
         setGameCounter()
     }
     else if (
@@ -100,8 +116,8 @@ const checkGameOver = (doorNumber) => {
         (doorNumber === 2 && openDoor2 === planeDoorPath) ||
         (doorNumber === 3 && openDoor3 === planeDoorPath)) {
         gameIsLost = true;
-        updateButton()
-        button.style.cursor = 'pointer'
+        setButtonLanguage(dictionaryGameLanguage)
+        gameButton.style.cursor = 'pointer'
         doorImage1.style.cursor = 'initial';
         doorImage2.style.cursor = 'initial';
         doorImage3.style.cursor = 'initial';
@@ -109,6 +125,7 @@ const checkGameOver = (doorNumber) => {
     }
 }
 
+// STATISTICS FEATURE
 const setGameCounter = () => {
     if (gameIsWon) {
         savedInsectsCount += 2;
@@ -124,94 +141,93 @@ const setGameCounter = () => {
     }
 }
 
-button.onclick = () => {
+// BUTTON CLICK TO START A NEW ROUND
+gameButton.onclick = () => {
     if (gameIsWon === true || gameIsLost === true) {
         startRound()
     }
 }
 
-language.onclick = () => {
+// LANGUAGE FEATURE
+const dictionary = {
+    dutch: {
+        startButton: 'Succes! 🐝',
+        restartLostButton: 'Helaas, nog een keer?',
+        restartWonButton: 'Yaaaay! 🐞 Nog een keer?',
+        tabTitle: 'Red onze insecten!',
+        gameTitle: 'Red onze insecten!',
+        instructionTitle: 'Instructies',
+        instructionText1: 'Achter één van deze drie deuren bevindt zich een vliegtuig met pesticide dat de insecten doodt.',
+        instructionText2: 'Het is aan jou om alle insecten te redden voordat pesticide over ze gespoten wordt.',
+        instructionText3: 'Als je alle deuren kunt openen en pas bij de laatste deur het vliegtuig tegenkomt, dan heb je gewonnen!',
+        instructionText4: 'Ga aan de slag om onze planeet te redden en de insecten te beschermen!',
+        savedInsectsText: 'Geredde insecten',
+        pesticideAttacksText: 'Pesticide aanvallen',
+    },
+    english: {
+        startButton: 'Good luck! 🐝',
+        restartLostButton: 'Too bad, play again?',
+        restartWonButton: 'Congrats! 🐞 Play again?',
+        tabTitle: 'Save the Insects!',
+        gameTitle: 'Save the Insects!',
+        instructionTitle: 'Instructions',
+        instructionText1: 'Behind one of these doors is an airplane with pesticide that will kill the insects.',
+        instructionText2: 'Your mission is to save all insects before the pesticide reaches them.',
+        instructionText3: 'If you manage to open all doors while avoiding the airplane until the very last door, you win!',
+        instructionText4: 'See if you can save our planet and protect the insects!',
+        savedInsectsText: 'Saved insects',
+        pesticideAttacksText: 'Pesticide attacks',
+    }
+}
+
+const selectGameLanguage = () => {
+    dictionaryGameLanguage = dictionary[currentLanguage];
+    return dictionaryGameLanguage
+}
+
+const setLanguage = (language) => {
+    setButtonLanguage(language);
+    tabTitle.innerHTML = language.tabTitle;
+    gameTitle.innerHTML = language.gameTitle;
+    instructionTitle.innerHTML = language.instructionTitle;
+    instructionText1.innerHTML = language.instructionText1;
+    instructionText2.innerHTML = language.instructionText2;
+    instructionText3.innerHTML = language.instructionText3;
+    instructionText4.innerHTML = language.instructionText4;
+    savedInsectsText.innerHTML = language.savedInsectsText;
+    pesticideAttacksText.innerHTML = language.pesticideAttacksText;
+}
+
+const setButtonLanguage = (language) => {
+    if (numClosedDoors === 3 || (!gameIsLost && !gameIsWon)) {
+        gameButton.innerText = language.startButton;
+    }
+    else if (gameIsLost) {
+        gameButton.innerText = language.restartLostButton;
+    }
+    else if (gameIsWon) {
+        gameButton.innerText = language.restartWonButton;
+    }
+}
+
+// CHANGE THE CURRENT LANGUAGE WHEN CLICKING ON THE LANGUAGE BUTTON
+languageButton.onclick = () => {
     if (currentLanguage === 'english') {
         currentLanguage = 'dutch'
-        setLanguage(currentLanguage)
+        selectGameLanguage()
+        setLanguage(dictionaryGameLanguage)
         document.getElementById('language_flag').src = 'images/british_flag.png'
         document.getElementById('language_text').innerHTML = 'EN'
     } else if (currentLanguage === 'dutch') {
         currentLanguage = 'english'
-        setLanguage(currentLanguage)
+        selectGameLanguage()
+        setLanguage(dictionaryGameLanguage)
         document.getElementById('language_flag').src = 'images/dutch_flag.png'
         document.getElementById('language_text').innerHTML = 'NL'
     }
 }
 
-const setLanguage = (language) => {
-    if (language === 'dutch') {
-        setLanguageToDutch()
-        setButtonToDutch()
-    } else if (language === 'english') {
-        setLanguageToEnglish()
-        setButtonToEnglish()
-    }
-}
-
-const setLanguageToEnglish = () => {
-    document.getElementById('tabTitle').innerHTML = "Save the Insects!";
-    document.getElementById('gameTitle').innerHTML = "Save the Insects!";
-    document.getElementById('instructionTitle').innerHTML = "Instructions";
-    document.getElementById('instructionText1').innerHTML = "Behind one of these doors is an airplane with pesticide that will kill the insects.";
-    document.getElementById('instructionText2').innerHTML = "Your mission is to save all insects before the pesticide reaches them.";
-    document.getElementById('instructionText3').innerHTML = "If you manage to open all doors while avoiding the airplane until the very last door, you win!"
-    document.getElementById('instructionText4').innerHTML = "See if you can save our planet and protect the insects!"
-    document.getElementById('savedInsects_text').innerHTML = "Saved insects"
-    document.getElementById('pesticideAttacks_text').innerHTML = "Pesticide attacks"
-}
-
-const setLanguageToDutch = () => {
-    document.getElementById('tabTitle').innerHTML = "Red onze insecten!";
-    document.getElementById('gameTitle').innerHTML = "Red onze insecten!";
-    document.getElementById('instructionTitle').innerHTML = "Instructies";
-    document.getElementById('instructionText1').innerHTML = "Achter één van deze drie deuren bevindt zich een vliegtuig met pesticide dat de insecten doodt.";
-    document.getElementById('instructionText2').innerHTML = "Het is aan jou om alle insecten te redden voordat pesticide over ze gespoten wordt.";
-    document.getElementById('instructionText3').innerHTML = "Als je alle deuren kunt openen en pas bij de laatste deur het vliegtuig tegenkomt, dan heb je gewonnen!"
-    document.getElementById('instructionText4').innerHTML = "Ga aan de slag om onze planeet te redden en de insecten te beschermen!"
-    document.getElementById('savedInsects_text').innerHTML = "Geredde insecten"
-    document.getElementById('pesticideAttacks_text').innerHTML = "Pesticide aanvallen"
-}
-
-const setButtonToEnglish = () => {
-    if (numClosedDoors === 3 || (!gameIsLost && !gameIsWon)) {
-        button.innerText = "Good luck! 🐝";
-    }
-    else if (gameIsLost) {
-        button.innerText = "Too bad, play again?";
-    }
-    else if (gameIsWon) {
-        button.innerText = "Congrats! 🐞 Play again?";
-    }
-}
-
-const setButtonToDutch = () => {
-    if (numClosedDoors === 3 || (!gameIsLost && !gameIsWon)) {
-        button.innerText = "Succes! 🐝";
-    }
-    else if (gameIsLost) {
-        button.innerText = "Helaas, nog een keer?";
-    }
-    else if (gameIsWon) {
-        button.innerText = "Yaaaay! 🐞 Nog een keer?";
-
-    }
-}
-
-const updateButton = () => {
-    if (currentLanguage === 'dutch') {
-        setButtonToDutch()
-    } else if (currentLanguage === 'english') {
-        setButtonToEnglish()
-    };
-}
-
-
+// START OF A NEW ROUND
 const startRound = () => {
     doorImage1.src = closedDoorPath;
     doorImage2.src = closedDoorPath;
@@ -224,11 +240,12 @@ const startRound = () => {
     door1Clickcounter = 0;
     door2Clickcounter = 0;
     door3Clickcounter = 0;
-    setLanguage(currentLanguage);
-    button.style.cursor = 'initial'
+    selectGameLanguage()
+    setLanguage(dictionaryGameLanguage);
+    gameButton.style.cursor = 'initial'
     gameIsWon = false;
     gameIsLost = false;
-    language.style.cursor = 'pointer';
+    languageButton.style.cursor = 'pointer';
 }
 
 startRound();
