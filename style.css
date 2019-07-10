@@ -21,6 +21,36 @@ header {
     padding: 0 7px;
 }
 
+.languages {
+    text-align: right;
+}
+
+.language_type {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.language_type .language_flag {
+    width: auto;
+    height: 30px;
+    z-index: 100;
+}
+
+.language_type .language_text {
+    font-family: 'Neucha';
+    font-size: 20px;
+    font-weight: bold;
+    color: darkslategrey;
+    margin: 18px 10px;
+    z-index: 100;
+}
+
+.instructions {
+    margin-top: -55px;
+    position: relative;
+}
+
 .instructionHeader {
     display: inline-flex;
     align-items: center;
@@ -34,7 +64,7 @@ header {
     font-size: 40px;
     font-weight: bold;
     color: #4682b4;
-    margin: 15px 6px;
+    margin: 5px 6px;
 }
 
 .instructionBody {
@@ -65,7 +95,7 @@ header {
 }
 
 .door {
-    height: 250px;
+    height: 240px;
     margin: 10px 20px;
 }
 
@@ -78,4 +108,43 @@ button {
     margin: 5px;
     width: 140px;
     height: 70px;
+}
+
+.gameButtonAndStatistics {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 450px;
+}
+
+.statistics {
+    background-color: #e5e5e594;
+    border-radius: 6px;
+    width: 150px;
+}
+
+.statistics_text {
+    font-family: 'Neucha';
+    font-size: 20px;
+    font-weight: bold;
+    color: darkslategrey;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.statistics_counter {
+    font-family: 'Neucha';
+    font-size: 18px;
+    font-weight: bold;
+    color: #f0f8ff;
+    height: 40px;
+    width: 90px;
+}
+
+#savedInsects_counter {
+    background-color: #b1b63ee8;
+}
+
+#pesticideAttacks_counter {
+    background-color: #ed462fb0;
 }

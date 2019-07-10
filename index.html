@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Neucha&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <title>Save the Insects</title>
+    <title id="tabTitle">Save the Insects</title>
 </head>
 
 <body>
@@ -17,38 +17,50 @@
             <img class="title" src="images/logo_bee.png" alt="Drawing of a wasp" style="width: 50px" />
         </div>
         <div>
-            <h1 class="title">Save the Insects!</h1>
+            <h1 id="gameTitle" class="title">Save the Insects!</h1>
         </div>
         <div>
             <img class="title" src="images/logo_bee.png" alt="Drawing of a wasp" style="width: 50px" />
         </div>
     </header>
 
+    <!-- Language -->
+    <section id="language" class="languages">
+        <div class="language_type">
+            <img id="language_flag" class="language_flag" src="images/dutch_flag.png" />
+            <p id="language_text" class="language_text">NL</p>
+        </div>
+    </section>
+
     <!-- Instructions -->
-    <section role="main">
+    <section class="instructions" role="main">
         <div class="instructionHeader">
             <img class="instructionTitle" src="images/logo_flower.png" alt="Drawing of a flower" style="width: 30px" />
-            <p class="instructionTitle">Instructions</p>
+            <p id="instructionTitle" class="instructionTitle">Instructions</p>
             <img class="instructionTitle" src="images/logo_flower.png" alt="Drawing of a flower" style="width: 30px" />
         </div>
         <table class="instructionBody">
             <tr>
                 <td class="instructionNumber">1</td>
-                <td class="instructionText">Your mission is to save all insects before the pesticide reaches them.</td>
+                <td id="instructionText1" class="instructionText">Your mission is to save all insects before the
+                    pesticide reaches them.</td>
             </tr>
             <tr>
                 <td class="instructionNumber">2</td>
-                <td class="instructionText">Behind one of these doors is an airplane with pesticide that will kill the
+                <td id="instructionText2" class="instructionText">Behind one of these doors is an airplane with
+                    pesticide that will kill the
                     insects.</td>
             </tr>
             <tr>
                 <td class="instructionNumber">3</td>
-                <td class="instructionText">If you manage to open all doors while avoiding the airplane until the very
+                <td id="instructionText3" class="instructionText">If you manage to open all doors while avoiding the
+                    airplane until the very
                     last door, you win!</td>
             </tr>
             <tr>
                 <td class="instructionNumber">4</td>
-                <td class="instructionText">See if you can save our planet and protect the insects!</td>
+                <td id="instructionText4" class="instructionText">See if you can save our planet and protect the
+                    insects!</td>
             </tr>
         </table>
     </section>
@@ -60,9 +72,22 @@
             <img id="door2" class="door" src="images/door.jpg" alt="foto of a blue door" />
             <img id="door3" class="door" src="images/door.jpg" alt="foto of a blue door" />
         </div>
-        <!-- Start Button -->
-        <button>
+    </section>
+
+    <section class="gameButtonAndStatistics">
+        <!-- Saved Insects Counter -->
+        <div id="savedInsects" class="statistics">
+            <p id="savedInsects_text" class="statistics_text">Saved insects</p>
+            <button id="savedInsects_counter" class="statistics_counter"></button>
+        </div>
+        <!-- Game Button -->
+        <button id="gameButton">
         </button>
+        <!-- Pesticide Attacks Counter -->
+        <div id="pesticideAttacks" class="statistics">
+            <p id="pesticideAttacks_text" class="statistics_text">Pesticide attacks</p>
+            <button id="pesticideAttacks_counter" class="statistics_counter"></button>
+        </div>
     </section>
 
     <script type="text/javascript" src="./script.js">
