@@ -23,6 +23,7 @@ const planeDoorPath = "images/plane.jpg";
 const beeDoorPath = "images/bee.jpg";
 const ladybugDoorPath = "images/ladybug.jpg";
 const closedDoorPath = "images/door.jpg";
+let images = [planeDoorPath, beeDoorPath, ladybugDoorPath];
 
 let openDoor1;
 let openDoor2;
@@ -37,25 +38,25 @@ let gameIsLost = false
 let savedInsectsCount = 0;
 let pesticideAttacksCount = 0;
 
+
 // GENERATING IMAGES BEHIND THE THREE DOORS
-const doorGenerator = () => {
-    let randomNumber = Math.floor(Math.random() * (numClosedDoors - 1))
-    if (randomNumber === 0) {
-        openDoor1 = planeDoorPath;
-        openDoor2 = beeDoorPath;
-        openDoor3 = ladybugDoorPath;
-    } else if (randomNumber === 1) {
-        openDoor1 = ladybugDoorPath;
-        openDoor2 = planeDoorPath;
-        openDoor3 = beeDoorPath;
-    } else if (randomNumber === 2) {
-        openDoor1 = beeDoorPath;
-        openDoor2 = ladybugDoorPath;
-        openDoor3 = planeDoorPath;
-    } else {
-        console.log("Something went wrong in the while executing the generateDoors function")
+const shuffleImages = (array) => {
+    let m = array.length, t, i;
+    while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
     }
-}
+    return array;
+};
+
+const doorGenerator = () => {
+    shuffleImages(images);
+    openDoor1 = images[0];
+    openDoor2 = images[1];
+    openDoor3 = images[2];
+};
 
 // CLICK FEATURE FOR THE THREE DOORS TO OPEN THEM
 doorImage1.onclick = () => {
@@ -182,7 +183,8 @@ const dictionary = {
 
 const selectGameLanguage = () => {
     dictionaryGameLanguage = dictionary[currentLanguage];
-    return dictionaryGameLanguage
+    console.log(dictionaryGameLanguage)
+    return dictionaryGameLanguage;
 }
 
 const setLanguage = (language) => {
@@ -232,7 +234,7 @@ const startRound = () => {
     doorImage1.src = closedDoorPath;
     doorImage2.src = closedDoorPath;
     doorImage3.src = closedDoorPath;
-    numClosedDoors = 3
+    numClosedDoors = 3;
     doorGenerator();
     doorImage1.style.cursor = 'pointer';
     doorImage2.style.cursor = 'pointer';
@@ -240,7 +242,7 @@ const startRound = () => {
     door1Clickcounter = 0;
     door2Clickcounter = 0;
     door3Clickcounter = 0;
-    selectGameLanguage()
+    selectGameLanguage();
     setLanguage(dictionaryGameLanguage);
     gameButton.style.cursor = 'initial'
     gameIsWon = false;
